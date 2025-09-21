@@ -1,3 +1,4 @@
+<?php
 /**
  * Sistema de Registro de Niños - Configuración de Rutas
  * 
