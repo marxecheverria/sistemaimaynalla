@@ -11,7 +11,7 @@
  */
 
 // Definir rutas base del sistema
-define('ROOT_PATH', __DIR__);
+define('ROOT_PATH', dirname(__DIR__));
 define('SRC_PATH', ROOT_PATH . '/src');
 define('PUBLIC_PATH', ROOT_PATH . '/public');
 define('CONFIG_PATH', ROOT_PATH . '/config');
