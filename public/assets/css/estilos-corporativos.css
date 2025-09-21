@@ -1,0 +1,268 @@
+/* Estilos Corporativos - Paleta de Colores y Tipografía */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+/* Variables CSS para colores corporativos */
+:root {
+  --color-principal: #1c2c50;
+  --color-accento: #dda619;
+  --color-alerta: #a5221c;
+  --color-blanco: #FFFFFF;
+  --color-principal-claro: #2a4a7a;
+  --color-accento-claro: rgba(221,166,25,0.1);
+  --color-accento-hover: rgba(221,166,25,0.2);
+  --color-sombra: rgba(28,44,80,0.3);
+}
+
+/* Tipografía global */
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: var(--color-principal);
+  line-height: 1.6;
+}
+
+/* Estilos para botones */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-principal-claro) 100%);
+  color: var(--color-blanco);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px var(--color-sombra);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--color-principal-claro) 0%, var(--color-principal) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--color-sombra);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--color-accento) 0%, #c49a0f 100%);
+  color: var(--color-blanco);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(221,166,25,0.3);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #c49a0f 0%, var(--color-accento) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(221,166,25,0.4);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--color-alerta) 0%, #8a1c16 100%);
+  color: var(--color-blanco);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(165,34,28,0.3);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #8a1c16 0%, var(--color-alerta) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(165,34,28,0.4);
+}
+
+/* Estilos para formularios */
+.form-input, .form-select, .form-textarea {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: var(--color-blanco);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--color-accento);
+  box-shadow: 0 0 0 3px var(--color-accento-claro);
+  outline: none;
+}
+
+.form-input.error, .form-select.error, .form-textarea.error {
+  border-color: var(--color-alerta);
+  box-shadow: 0 0 0 3px rgba(165,34,28,0.1);
+}
+
+.form-input.success, .form-select.success, .form-textarea.success {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40,167,69,0.1);
+}
+
+/* Estilos para tarjetas */
+.card {
+  background: var(--color-blanco);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--color-sombra);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-principal-claro) 100%);
+  color: var(--color-blanco);
+  padding: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Estilos para tablas */
+table {
+  background: var(--color-blanco);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px var(--color-sombra);
+}
+
+th {
+  background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-principal-claro) 100%);
+  color: var(--color-blanco);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 15px;
+}
+
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+tr:hover {
+  background: var(--color-accento-claro);
+}
+
+/* Estilos para mensajes */
+.message.success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-left: 4px solid #28a745;
+}
+
+.message.error {
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  color: var(--color-alerta);
+  border: 1px solid #f5c6cb;
+  border-left: 4px solid var(--color-alerta);
+}
+
+.message.info {
+  background: linear-gradient(135deg, var(--color-accento-claro) 0%, rgba(221,166,25,0.2) 100%);
+  color: var(--color-principal);
+  border: 1px solid var(--color-accento);
+  border-left: 4px solid var(--color-accento);
+}
+
+/* Estilos para badges */
+.badge-primary {
+  background: var(--color-principal);
+  color: var(--color-blanco);
+}
+
+.badge-accent {
+  background: var(--color-accento);
+  color: var(--color-blanco);
+}
+
+.badge-danger {
+  background: var(--color-alerta);
+  color: var(--color-blanco);
+}
+
+/* Estilos para enlaces */
+a {
+  color: var(--color-principal);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-accento);
+  text-decoration: none;
+}
+
+/* Estilos para títulos */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: var(--color-principal);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn-primary, .btn-secondary, .btn-danger {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+  
+  h1 {
+    font-size: 2em;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+  }
+  
+  h3 {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-primary, .btn-secondary, .btn-danger {
+    padding: 8px 16px;
+    font-size: 11px;
+  }
+  
+  h1 {
+    font-size: 1.5em;
+  }
+  
+  h2 {
+    font-size: 1.3em;
+  }
+  
+  h3 {
+    font-size: 1.1em;
+  }
+}

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Registro de Niños - Acceso</title>
+  <link rel="stylesheet" href="assets/css/menu.css">
+  <link rel="stylesheet" href="assets/css/estilos-corporativos.css">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1c2c50 0%, #2a4a7a 50%, #dda619 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Patrón de fondo decorativo */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.05"/><circle cx="10" cy="50" r="0.5" fill="white" opacity="0.05"/><circle cx="90" cy="50" r="0.5" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      box-shadow: 0 25px 50px rgba(28, 44, 80, 0.3);
+      padding: 50px;
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      z-index: 10;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .logo-container {
+      margin-bottom: 25px;
+    }
+    
+    .logo-container img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: 0 10px 25px rgba(28, 44, 80, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .logo-container img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 35px rgba(28, 44, 80, 0.3);
+    }
+    
+    .login-title {
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #1c2c50;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .login-subtitle {
+      font-size: 1.1em;
+      color: #6c757d;
+      margin: 0;
+      font-weight: 400;
+    }
+    
+    .login-form {
+      margin-top: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #1c2c50;
+      font-size: 1em;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      background: #fff;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #dda619;
+      box-shadow: 0 0 0 3px rgba(221, 166, 25, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .form-input.error {
+      border-color: #a5221c;
+      box-shadow: 0 0 0 3px rgba(165, 34, 28, 0.1);
+    }
+    
+    .form-input.success {
+      border-color: #28a745;
+      box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+    }
+    
+    .input-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2em;
+      color: #6c757d;
+      pointer-events: none;
+    }
+    
+    .form-group:focus-within .input-icon {
+      color: #dda619;
+    }
+    
+    .login-button {
+      width: 100%;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #1c2c50 0%, #2a4a7a 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .login-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(28, 44, 80, 0.3);
+    }
+    
+    .login-button:active {
+      transform: translateY(-1px);
+    }
+    
+    .login-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .login-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .login-button:hover::before {
+      left: 100%;
+    }
+    
+    .error-message {
+      color: #a5221c;
+      font-size: 0.9em;
+      margin-top: 8px;
+      display: none;
+      align-items: center;
+      font-weight: 500;
+    }
+    
+    .error-icon {
+      margin-right: 8px;
+      font-size: 1.1em;
+    }
+    
+    .success-message {
+      color: #28a745;
+      font-size: 0.9em;
+      margin-top: 8px;
+      display: none;
+      align-items: center;
+      font-weight: 500;
+    }
+    
+    .success-icon {
+      margin-right: 8px;
+      font-size: 1.1em;
+    }
+    
+    .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 10px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .forgot-password {
+      text-align: center;
+      margin-top: 25px;
+    }
+    
+    .forgot-password a {
+      color: #1c2c50;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .forgot-password a:hover {
+      color: #dda619;
+      text-decoration: underline;
+    }
+    
+    .system-info {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 1px solid #e9ecef;
+    }
+    
+    .system-info p {
+      color: #6c757d;
+      font-size: 0.9em;
+      margin: 5px 0;
+    }
+    
+    .version-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #dda619 0%, #c49a0f 100%);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+    }
+    
+    /* Animaciones de entrada */
+    .login-container {
+      animation: slideInUp 0.8s ease-out;
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .login-container {
+        margin: 20px;
+        padding: 40px 30px;
+        max-width: none;
+      }
+      
+      .login-title {
+        font-size: 1.8em;
+      }
+      
+      .logo-container img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .login-container {
+        margin: 15px;
+        padding: 30px 20px;
+      }
+      
+      .login-title {
+        font-size: 1.6em;
+      }
+      
+      .logo-container img {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .form-input {
+        padding: 12px 15px;
+      }
+      
+      .login-button {
+        padding: 12px 25px;
+        font-size: 1em;
+      }
+    }
+    
+    /* Efectos de partículas flotantes */
+    .floating-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.1;
+      }
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 0.3;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Partículas flotantes decorativas -->
+  <div class="floating-particles" id="particles"></div>
+  
+  <div class="login-container">
+    <div class="login-header">
+      <div class="logo-container">
+        <img src="assets/images/login.jpg" alt="Logo del Sistema" id="logo">
+      </div>
+      <h1 class="login-title">Acceso al Sistema</h1>
+      <p class="login-subtitle"> Portal Administrativo</p>
+    </div>
+    
+    <form class="login-form" id="loginForm" method="POST" action="../src/auth/auth.php">
+      <div class="form-group">
+        <label class="form-label" for="username">
+          <span style="margin-right: 8px;">👤</span>
+          Usuario
+        </label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          class="form-input" 
+          required 
+          placeholder="Ingrese su nombre de usuario"
+          autocomplete="username"
+        >
+        <span class="input-icon"></span>
+        <div class="error-message" id="usernameError">
+          <span class="error-icon">❌</span>
+          El nombre de usuario es obligatorio
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="password">
+          <span style="margin-right: 8px;">🔒</span>
+          Contraseña
+        </label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="form-input" 
+          required 
+          placeholder="Ingrese su contraseña"
+          autocomplete="current-password"
+        >
+        <span class="input-icon"></span>
+        <div class="error-message" id="passwordError">
+          <span class="error-icon">❌</span>
+          La contraseña es obligatoria
+        </div>
+      </div>
+      
+      <button type="submit" class="login-button" id="loginButton">
+        <span class="loading-spinner" id="loadingSpinner"></span>
+        <span id="buttonText">🚀 Iniciar Sesión</span>
+      </button>
+      
+      <div class="error-message" id="generalError" style="text-align: center; margin-top: 15px;">
+        <span class="error-icon">❌</span>
+        <span id="generalErrorMessage"></span>
+      </div>
+    </form>
+    
+    <div class="forgot-password">
+      <a href="#" onclick="showForgotPassword()">¿Olvidaste tu contraseña?</a>
+    </div>
+    
+    <div class="system-info">
+      <p><strong>Sistema de Registro de Niños</strong></p>
+      <p>Portal Administrativo</p>
+      <div class="version-badge">v1.0</div>
+    </div>
+  </div>
+
+  <script>
+    // Crear partículas flotantes decorativas
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 15;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Tamaño aleatorio
+        const size = Math.random() * 4 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Posición aleatoria
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        
+        // Animación con delay aleatorio
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Inicializar formulario
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles();
+      initializeForm();
+    });
+    
+    // Inicializar funcionalidades del formulario
+    function initializeForm() {
+      const inputs = document.querySelectorAll('.form-input');
+      const form = document.getElementById('loginForm');
+      
+      // Efectos visuales en inputs
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.classList.remove('focused');
+          validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+          validateField(this);
+          clearGeneralError();
+        });
+      });
+      
+      // Manejo del envío del formulario
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        if (validateForm()) {
+          submitForm();
+        }
+      });
+    }
+    
+    // Validar campo individual
+    function validateField(field) {
+      const fieldId = field.id;
+      const errorElement = document.getElementById(fieldId + 'Error');
+      
+      if (!errorElement) return true;
+      
+      let isValid = true;
+      let errorMessage = '';
+      
+      switch(fieldId) {
+        case 'username':
+          if (field.value.trim() === '') {
+            isValid = false;
+            errorMessage = 'El nombre de usuario es obligatorio';
+          } else if (field.value.trim().length < 3) {
+            isValid = false;
+            errorMessage = 'El usuario debe tener al menos 3 caracteres';
+          }
+          break;
+        case 'password':
+          if (field.value === '') {
+            isValid = false;
+            errorMessage = 'La contraseña es obligatoria';
+          } else if (field.value.length < 4) {
+            isValid = false;
+            errorMessage = 'La contraseña debe tener al menos 4 caracteres';
+          }
+          break;
+      }
+      
+      // Mostrar/ocultar mensaje de error
+      if (isValid) {
+        errorElement.style.display = 'none';
+        field.classList.remove('error');
+        field.classList.add('success');
+      } else {
+        errorElement.style.display = 'flex';
+        errorElement.innerHTML = `<span class="error-icon">❌</span>${errorMessage}`;
+        field.classList.add('error');
+        field.classList.remove('success');
+      }
+      
+      return isValid;
+    }
+    
+    // Validar formulario completo
+    function validateForm() {
+      const username = document.getElementById('username');
+      const password = document.getElementById('password');
+      
+      const usernameValid = validateField(username);
+      const passwordValid = validateField(password);
+      
+      return usernameValid && passwordValid;
+    }
+    
+    // Enviar formulario
+    function submitForm() {
+      const button = document.getElementById('loginButton');
+      const buttonText = document.getElementById('buttonText');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      
+      // Mostrar estado de carga
+      button.disabled = true;
+      loadingSpinner.style.display = 'inline-block';
+      buttonText.textContent = 'Verificando...';
+      
+      // Simular envío (aquí se haría la petición real)
+      setTimeout(() => {
+        // Enviar datos reales
+        const formData = new FormData(document.getElementById('loginForm'));
+        
+        fetch('auth.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            showSuccessMessage('¡Acceso exitoso! Redirigiendo...');
+            setTimeout(() => {
+              window.location.href = 'panel.php';
+            }, 1500);
+          } else {
+            showGeneralError(data.message || 'Credenciales incorrectas');
+            resetButton();
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          showGeneralError('Error de conexión. Intente nuevamente.');
+          resetButton();
+        });
+      }, 1000);
+    }
+    
+    // Resetear botón
+    function resetButton() {
+      const button = document.getElementById('loginButton');
+      const buttonText = document.getElementById('buttonText');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      
+      button.disabled = false;
+      loadingSpinner.style.display = 'none';
+      buttonText.textContent = '🚀 Iniciar Sesión';
+    }
+    
+    // Mostrar error general
+    function showGeneralError(message) {
+      const errorElement = document.getElementById('generalError');
+      const errorMessage = document.getElementById('generalErrorMessage');
+      
+      errorMessage.textContent = message;
+      errorElement.style.display = 'flex';
+      
+      // Auto-ocultar después de 5 segundos
+      setTimeout(() => {
+        errorElement.style.display = 'none';
+      }, 5000);
+    }
+    
+    // Limpiar error general
+    function clearGeneralError() {
+      const errorElement = document.getElementById('generalError');
+      errorElement.style.display = 'none';
+    }
+    
+    // Mostrar mensaje de éxito
+    function showSuccessMessage(message) {
+      const successElement = document.createElement('div');
+      successElement.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 20px 30px;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(40, 167, 69, 0.3);
+        z-index: 10000;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        text-align: center;
+        animation: slideInScale 0.5s ease-out;
+      `;
+      
+      successElement.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <span style="margin-right: 10px; font-size: 1.5em;">✅</span>
+          ${message}
+        </div>
+      `;
+      
+      document.body.appendChild(successElement);
+      
+      setTimeout(() => {
+        successElement.style.animation = 'slideOutScale 0.5s ease-in';
+        setTimeout(() => {
+          document.body.removeChild(successElement);
+        }, 500);
+      }, 2000);
+    }
+    
+    // Mostrar modal de contraseña olvidada
+    function showForgotPassword() {
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease-out;
+      `;
+      
+      modal.innerHTML = `
+        <div style="
+          background: white;
+          padding: 40px;
+          border-radius: 20px;
+          max-width: 400px;
+          width: 90%;
+          text-align: center;
+          box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+          animation: slideInScale 0.3s ease-out;
+        ">
+          <h3 style="color: #1c2c50; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;">
+            🔐 Recuperar Contraseña
+          </h3>
+          <p style="color: #6c757d; margin-bottom: 25px; line-height: 1.5;">
+            Para recuperar tu contraseña, contacta al administrador del sistema.
+          </p>
+          <button onclick="this.parentElement.parentElement.remove()" style="
+            background: linear-gradient(135deg, #1c2c50 0%, #2a4a7a 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+            ✅ Entendido
+          </button>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          document.body.removeChild(modal);
+        }
+      });
+    }
+    
+    // Agregar estilos CSS para animaciones
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      
+      @keyframes slideOutScale {
+        from {
+          opacity: 1;
+          transform: scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      .form-group.focused .form-label {
+        color: #dda619;
+        transform: translateY(-2px);
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
+
+

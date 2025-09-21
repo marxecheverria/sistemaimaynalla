@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Niños</title>
+  <link rel="stylesheet" href="assets/css/menu.css">
+  <link rel="stylesheet" href="assets/css/estilos-corporativos.css">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    .main-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 100px 20px 40px;
+    }
+    
+    .form-container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .form-header {
+      background: linear-gradient(135deg, #1c2c50 0%, #2a4a7a 100%);
+      color: white;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .form-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .form-title {
+      font-size: 2.5em;
+      font-weight: 700;
+      margin: 0 0 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 1;
+      color: #FFFFFF;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .form-subtitle {
+      font-size: 1.2em;
+      opacity: 0.95;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+      color: #FFFFFF;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    .form-body {
+      padding: 40px;
+    }
+    
+    .form-section {
+      margin-bottom: 40px;
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 30px;
+      border-left: 5px solid #dda619;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(28,44,80,0.1);
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      color: #1c2c50;
+    }
+    
+    .section-icon {
+      font-size: 2em;
+      margin-right: 15px;
+    }
+    
+    .section-title {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    
+    .form-group {
+      position: relative;
+    }
+    
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    
+    .form-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #1c2c50;
+      font-size: 1em;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .label-icon {
+      margin-right: 8px;
+      font-size: 1.1em;
+    }
+    
+    .required-indicator {
+      color: #dc3545;
+      margin-left: 5px;
+      font-weight: bold;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      background: #fff;
+      box-sizing: border-box;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #dda619;
+      box-shadow: 0 0 0 3px rgba(221,166,25,0.1);
+      transform: translateY(-2px);
+    }
+    
+    .form-input.error {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 3px rgba(220,53,69,0.1);
+    }
+    
+    .form-input.success {
+      border-color: #28a745;
+      box-shadow: 0 0 0 3px rgba(40,167,69,0.1);
+    }
+    
+    .form-select {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 1em;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    .form-select:focus {
+      outline: none;
+      border-color: #dda619;
+      box-shadow: 0 0 0 3px rgba(221,166,25,0.1);
+    }
+    
+    .form-select:disabled {
+      background: #f8f9fa;
+      color: #6c757d;
+      cursor: not-allowed;
+    }
+    
+    .form-textarea {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 1em;
+      resize: vertical;
+      min-height: 100px;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    .form-textarea:focus {
+      outline: none;
+      border-color: #007BFF;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    }
+    
+    .radio-group {
+      display: flex;
+      gap: 30px;
+      margin-top: 10px;
+    }
+    
+    .radio-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      background: #fff;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+    }
+    
+    .radio-item:hover {
+      border-color: #dda619;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(221,166,25,0.1);
+    }
+    
+    .radio-item.selected {
+      border-color: #dda619;
+      background: rgba(221,166,25,0.05);
+    }
+    
+    .radio-item input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+    
+    .radio-item label {
+      cursor: pointer;
+      font-weight: 500;
+      color: #495057;
+      margin: 0;
+    }
+    
+    
+    .error-message {
+      color: #dc3545;
+      font-size: 0.9em;
+      margin-top: 5px;
+      display: none;
+      align-items: center;
+    }
+    
+    .error-icon {
+      margin-right: 5px;
+    }
+    
+    .success-message {
+      color: #28a745;
+      font-size: 0.9em;
+      margin-top: 5px;
+      display: none;
+      align-items: center;
+    }
+    
+    .success-icon {
+      margin-right: 5px;
+    }
+    
+    .form-actions {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid #e9ecef;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 15px 40px;
+      margin: 0 10px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #1c2c50 0%, #2a4a7a 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(28,44,80,0.3);
+    }
+    
+    .btn-secondary {
+      background: linear-gradient(135deg, #dda619 0%, #c49a0f 100%);
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(221,166,25,0.3);
+    }
+    
+    .progress-indicator {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    
+    .progress-step {
+      display: flex;
+      align-items: center;
+      margin: 0 10px;
+    }
+    
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #6c757d;
+      transition: all 0.3s ease;
+    }
+    
+    .step-circle.active {
+      background: #007BFF;
+      color: white;
+    }
+    
+    .step-circle.completed {
+      background: #28a745;
+      color: white;
+    }
+    
+    .step-line {
+      width: 50px;
+      height: 2px;
+      background: #e9ecef;
+      margin: 0 10px;
+    }
+    
+    .step-line.completed {
+      background: #28a745;
+    }
+    
+    .floating-help {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #1c2c50 0%, #2a4a7a 100%);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 25px;
+      box-shadow: 0 8px 20px rgba(28,44,80,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .floating-help:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(28,44,80,0.4);
+    }
+    
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 100px 10px 20px;
+      }
+      
+      .form-header {
+        padding: 30px 20px;
+      }
+      
+      .form-title {
+        font-size: 2em;
+      }
+      
+      .form-body {
+        padding: 30px 20px;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .radio-group {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .btn {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+      }
+      
+      .floating-help {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menú de navegación profesional -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../panel" class="nav-logo">
+        <img src="assets/images/logo.png" alt="Logo del Sistema" class="logo-icon">
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="registro.html" class="nav-link active">
+            <span class="icon">📝</span> Nuevo Registro
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../panel" class="nav-link">
+            <span class="icon">📋</span> Panel Principal
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../src/auth/auth.php" class="nav-link">
+            <span class="icon">🚪</span> Cerrar Sesión
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="form-container">
+      <!-- Header del formulario -->
+      <div class="form-header">
+        <h1 class="form-title">📝 Registro de Niños</h1>
+      </div>
+      
+      <!-- Cuerpo del formulario -->
+      <div class="form-body">
+  <form id="registroForm" action="../src/pages/guardar_registro.php" method="POST">
+
+          <!-- Sección 1: Datos Personales -->
+          <div class="form-section">
+            	<div class="section-header">
+              <span class="section-icon">📝</span>
+              <h3 class="section-title">Datos Personales</h3>
+            </div>
+			
+			
+			
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">🆔</span>
+                  Cédula de Identidad
+                  <span class="required-indicator">*</span>
+                </label>
+                <input type="text" id="ciNiño" name="ciNiño" class="form-input" required pattern="^[0-9]{10}$" placeholder="Ej: 1234567890">
+                
+                <div class="error-message" id="ciNiñoError">
+                  <span class="error-icon">❌</span>
+                  La cédula debe tener exactamente 10 dígitos
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">👤</span>
+                  Apellidos y Nombres Completos
+                  <span class="required-indicator">*</span>
+                </label>
+                <input type="text" id="nombreNiño" name="nombreNiño" class="form-input" required placeholder="Ej: García López María Elena">
+                
+                <div class="error-message" id="nombreNiñoError">
+                  <span class="error-icon">❌</span>
+                  Este campo es obligatorio
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">📅</span>
+                  Fecha de Nacimiento
+                  <span class="required-indicator">*</span>
+                </label>
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-input" required>
+                
+                <div class="error-message" id="fechaNacimientoError">
+                  <span class="error-icon">❌</span>
+                  Seleccione una fecha válida
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">⚥</span>
+                  Sexo
+                  <span class="required-indicator">*</span>
+                </label>
+    <div class="radio-group">
+                  <div class="radio-item" onclick="selectRadio('sexo', 'Masculino')">
+                    <input type="radio" name="sexo" value="Masculino" required>
+                    <label>👦 Masculino</label>
+                  </div>
+                  <div class="radio-item" onclick="selectRadio('sexo', 'Femenino')">
+                    <input type="radio" name="sexo" value="Femenino" required>
+                    <label>👧 Femenino</label>
+                  </div>
+                </div>
+                <div class="error-message" id="sexoError">
+                  <span class="error-icon">❌</span>
+                  Seleccione una opción
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Sección 2: Ubicación -->
+          <div class="form-section">
+            
+			<div class="section-header">
+              <span class="section-icon">📍</span>
+              <h3 class="section-title">Ubicación</h3>
+            </div>
+			
+			
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">🏛️</span>
+                  Provincia
+                  <span class="required-indicator">*</span>
+                </label>
+                <select id="provincia" name="provincia" class="form-select" required>
+      <option value="">Seleccione una provincia</option>
+    </select>
+              
+                <div class="error-message" id="provinciaError">
+                  <span class="error-icon">❌</span>
+                  Este campo es obligatorio
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">🏘️</span>
+                  Cantón
+                  <span class="required-indicator">*</span>
+                </label>
+                <select id="canton" name="canton" class="form-select" required disabled>
+      <option value="">Seleccione un cantón</option>
+    </select>
+               
+                <div class="error-message" id="cantonError">
+                  <span class="error-icon">❌</span>
+                  Este campo es obligatorio
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">🏠</span>
+                  Parroquia
+                </label>
+                <select id="parroquia" name="parroquia" class="form-select" disabled>
+      <option value="">Seleccione una parroquia</option>
+    </select>
+
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">🏘️</span>
+                  Barrio
+                </label>
+                <input type="text" id="barrio" name="barrio" class="form-input" placeholder="Ej: Centro, Norte, Sur">
+                
+              </div>
+              
+              <div class="form-group full-width">
+                <label class="form-label">
+                  <span class="label-icon">🏠</span>
+                  Dirección Completa
+                </label>
+                <textarea id="direccion" name="direccion" class="form-textarea" placeholder="Ej: Av. Principal 123 y Calle Secundaria"></textarea>
+               
+              </div>
+            </div>
+          </div>
+          
+          <!-- Sección 3: Información Académica -->
+          <div class="form-section">
+            <div class="section-header">
+              <span class="section-icon">🎓</span>
+              <h3 class="section-title">Información Académica</h3>
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">📚</span>
+                  Estado Académico
+                  <span class="required-indicator">*</span>
+                </label>
+    <div class="radio-group">
+                  <div class="radio-item" onclick="selectRadio('activo', 'Si')">
+                    <input type="radio" name="activo" value="Si" required>
+                    <label>✅ Sí, está estudiando</label>
+                  </div>
+                  <div class="radio-item" onclick="selectRadio('activo', 'No')">
+                    <input type="radio" name="activo" value="No" required>
+                    <label>❌ No está estudiando</label>
+                  </div>
+                </div>
+                <div class="error-message" id="activoError">
+                  <span class="error-icon">❌</span>
+                  Seleccione una opción
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">📖</span>
+                  Grado o Nivel
+                </label>
+                <input type="text" id="grado" name="grado" class="form-input" placeholder="Ej: 3ro Básico, 1ro Bachillerato">
+              </div>
+            </div>
+    </div>
+          
+          <!-- Sección 4: Información de Discapacidad -->
+          <div class="form-section">
+            <div class="section-header">
+              <span class="section-icon">♿</span>
+              <h3 class="section-title">Información de Discapacidad</h3>
+            </div>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">🔍</span>
+                  ¿Tiene alguna discapacidad?
+                  <span class="required-indicator">*</span>
+                </label>
+    <div class="radio-group">
+                  <div class="radio-item" onclick="selectRadio('discapacidad', 'Si')">
+                    <input type="radio" name="discapacidad" value="Si" required>
+                    <label>♿ Sí, tiene discapacidad</label>
+                  </div>
+                  <div class="radio-item" onclick="selectRadio('discapacidad', 'No')">
+                    <input type="radio" name="discapacidad" value="No" required>
+                    <label>✅ No tiene discapacidad</label>
+                  </div>
+                </div>
+                <div class="error-message" id="discapacidadError">
+                  <span class="error-icon">❌</span>
+                  Seleccione una opción
+                </div>
+              </div>
+              
+              <div class="form-group full-width">
+                <label class="form-label">
+                  <span class="label-icon">📝</span>
+                  Detalle de Discapacidad
+                </label>
+                <textarea id="detalleDiscapacidad" name="detalleDiscapacidad" class="form-textarea" placeholder="Describa el tipo de discapacidad si aplica"></textarea>
+               
+              </div>
+            </div>
+          </div>
+          
+          <!-- Sección 5: Representantes -->
+          <div class="form-section">
+            
+            <!-- Representante 1 -->
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">👤</span>
+                  Nombre del Representante Principal
+                  <span class="required-indicator">*</span>
+                </label>
+                <input type="text" id="representante1" name="representante1" class="form-input" required placeholder="Ej: García López Juan Carlos">
+                
+                <div class="error-message" id="representante1Error">
+                  <span class="error-icon">❌</span>
+                  Este campo es obligatorio
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">🆔</span>
+                  Cédula del Representante
+                  <span class="required-indicator">*</span>
+                </label>
+                <input type="text" id="ciRepresentante1" name="ciRepresentante1" class="form-input" required pattern="^[0-9]{10}$" placeholder="Ej: 1234567890">
+               
+                <div class="error-message" id="ciRepresentante1Error">
+                  <span class="error-icon">❌</span>
+                  La cédula debe tener exactamente 10 dígitos
+                </div>
+    </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">👨‍👩‍👧‍👦</span>
+                  Parentesco
+                  <span class="required-indicator">*</span>
+                </label>
+                <input type="text" id="parentesco1" name="parentesco1" class="form-input" required placeholder="Ej: Padre, Madre, Abuelo, Tío">
+                
+                <div class="error-message" id="parentesco1Error">
+                  <span class="error-icon">❌</span>
+                  Este campo es obligatorio
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="label-icon">📞</span>
+                  Teléfono de Contacto
+                  <span class="required-indicator">*</span>
+                </label>
+                <input type="tel" id="telefono1" name="telefono1" class="form-input" required pattern="^[0-9]{7,10}$" placeholder="Ej: 0987654321">
+               
+                <div class="error-message" id="telefono1Error">
+                  <span class="error-icon">❌</span>
+                  Ingrese un teléfono válido (7-10 dígitos)
+                </div>
+              </div>
+            </div>
+            
+            <!-- Representante 2 -->
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e9ecef;">
+              <h4 style="color: #1e3c72; margin-bottom: 20px; display: flex; align-items: center;">
+                <span style="margin-right: 10px;">👥</span>
+                Representante Secundario (Opcional)
+              </h4>
+              
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">
+                    <span class="label-icon">👤</span>
+                    Nombre del Segundo Representante
+                  </label>
+                  <input type="text" id="representante2" name="representante2" class="form-input" placeholder="Ej: López Martínez Ana María">
+                 
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">
+                    <span class="label-icon">📞</span>
+                    Teléfono del Segundo Representante
+                  </label>
+                  <input type="tel" id="telefono2" name="telefono2" class="form-input" pattern="^[0-9]{7,10}$" placeholder="Ej: 0987654321">
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Botones de acción -->
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+              <span style="margin-right: 8px;">💾</span>
+              Guardar Registro
+            </button>
+            <a href="../panel" class="btn btn-secondary">
+              <span style="margin-right: 8px;">⬅️</span>
+              Cancelar
+            </a>
+          </div>
+  </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Ayuda flotante -->
+  <div class="floating-help" onclick="showHelp()">
+    <span style="margin-right: 8px;">❓</span>
+    ¿Necesitas ayuda?
+  </div>
+
+  <script>
+    // Variables globales
+    let currentStep = 1;
+    const totalSteps = 3;
+    
+    // Cargar provincias al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarProvincias();
+      initializeForm();
+      updateProgressIndicator();
+    });
+    
+    // Inicializar funcionalidades del formulario
+    function initializeForm() {
+      // Agregar efectos visuales a los inputs
+      const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.classList.remove('focused');
+          validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+          validateField(this);
+        });
+      });
+      
+      // Validación en tiempo real para C.I.
+      document.getElementById('ciNiño').addEventListener('input', function() {
+        const value = this.value.replace(/\D/g, ''); // Solo números
+        this.value = value;
+        if (value.length === 10) {
+          this.classList.add('success');
+          this.classList.remove('error');
+        } else if (value.length > 0) {
+          this.classList.add('error');
+          this.classList.remove('success');
+        }
+      });
+      
+      // Validación en tiempo real para C.I. representante
+      document.getElementById('ciRepresentante1').addEventListener('input', function() {
+        const value = this.value.replace(/\D/g, ''); // Solo números
+        this.value = value;
+        if (value.length === 10) {
+          this.classList.add('success');
+          this.classList.remove('error');
+        } else if (value.length > 0) {
+          this.classList.add('error');
+          this.classList.remove('success');
+        }
+      });
+      
+      // Validación en tiempo real para teléfonos
+      document.getElementById('telefono1').addEventListener('input', function() {
+        const value = this.value.replace(/\D/g, ''); // Solo números
+        this.value = value;
+        if (value.length >= 7 && value.length <= 10) {
+          this.classList.add('success');
+          this.classList.remove('error');
+        } else if (value.length > 0) {
+          this.classList.add('error');
+          this.classList.remove('success');
+        }
+      });
+      
+      document.getElementById('telefono2').addEventListener('input', function() {
+        const value = this.value.replace(/\D/g, ''); // Solo números
+        this.value = value;
+        if (value.length >= 7 && value.length <= 10) {
+          this.classList.add('success');
+          this.classList.remove('error');
+        } else if (value.length > 0) {
+          this.classList.add('error');
+          this.classList.remove('success');
+        }
+      });
+    }
+    
+    // Función para seleccionar radio buttons con efectos visuales
+    function selectRadio(name, value) {
+      const radioItems = document.querySelectorAll(`input[name="${name}"]`);
+      const radioContainers = document.querySelectorAll(`input[name="${name}"]`).map(input => input.closest('.radio-item'));
+      
+      radioItems.forEach(radio => {
+        radio.checked = radio.value === value;
+      });
+      
+      radioContainers.forEach(container => {
+        container.classList.remove('selected');
+        if (container.querySelector('input').value === value) {
+          container.classList.add('selected');
+        }
+      });
+      
+      // Actualizar progreso
+      updateProgressIndicator();
+    }
+    
+    // Función para validar campos individuales
+    function validateField(field) {
+      const fieldId = field.id;
+      const errorElement = document.getElementById(fieldId + 'Error');
+      
+      if (!errorElement) return;
+      
+      let isValid = true;
+      let errorMessage = '';
+      
+      switch(fieldId) {
+        case 'ciNiño':
+        case 'ciRepresentante1':
+          if (!/^\d{10}$/.test(field.value)) {
+            isValid = false;
+            errorMessage = 'La cédula debe tener exactamente 10 dígitos';
+          }
+          break;
+        case 'nombreNiño':
+        case 'representante1':
+        case 'parentesco1':
+          if (field.value.trim() === '') {
+            isValid = false;
+            errorMessage = 'Este campo es obligatorio';
+          }
+          break;
+        case 'fechaNacimiento':
+          if (!field.value) {
+            isValid = false;
+            errorMessage = 'Seleccione una fecha válida';
+          }
+          break;
+        case 'provincia':
+        case 'canton':
+          if (field.value.trim() === '') {
+            isValid = false;
+            errorMessage = 'Este campo es obligatorio';
+          }
+          break;
+        case 'telefono1':
+        case 'telefono2':
+          if (field.value && !/^\d{7,10}$/.test(field.value)) {
+            isValid = false;
+            errorMessage = 'Ingrese un teléfono válido (7-10 dígitos)';
+          }
+          break;
+      }
+      
+      // Mostrar/ocultar mensaje de error
+      if (isValid) {
+        errorElement.style.display = 'none';
+        field.classList.remove('error');
+        field.classList.add('success');
+      } else {
+        errorElement.style.display = 'flex';
+        errorElement.innerHTML = `<span class="error-icon">❌</span>${errorMessage}`;
+        field.classList.add('error');
+        field.classList.remove('success');
+      }
+      
+      return isValid;
+    }
+
+    // Función para cargar provincias
+    function cargarProvincias() {
+      fetch('../ajax/ubicacion?action=provincias')
+        .then(response => response.json())
+        .then(data => {
+          const selectProvincia = document.getElementById('provincia');
+          data.forEach(provincia => {
+            const option = document.createElement('option');
+            option.value = provincia;
+            option.textContent = provincia;
+            selectProvincia.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          showNotification('Error al cargar las provincias', 'error');
+        });
+    }
+
+    // Función para cargar cantones
+    function cargarCantones(provincia) {
+      const selectCanton = document.getElementById('canton');
+      const selectParroquia = document.getElementById('parroquia');
+      
+      // Limpiar cantones y parroquias
+      selectCanton.innerHTML = '<option value="">Seleccione un cantón</option>';
+      selectParroquia.innerHTML = '<option value="">Seleccione una parroquia</option>';
+      selectParroquia.disabled = true;
+      
+      if (provincia) {
+        fetch(`../ajax/ubicacion?action=cantones&provincia=${encodeURIComponent(provincia)}`)
+          .then(response => response.json())
+          .then(data => {
+            data.forEach(canton => {
+              const option = document.createElement('option');
+              option.value = canton;
+              option.textContent = canton;
+              selectCanton.appendChild(option);
+            });
+            selectCanton.disabled = false;
+            updateProgressIndicator();
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            showNotification('Error al cargar los cantones', 'error');
+          });
+      } else {
+        selectCanton.disabled = true;
+      }
+    }
+
+    // Función para cargar parroquias
+    function cargarParroquias(provincia, canton) {
+      const selectParroquia = document.getElementById('parroquia');
+      
+      // Limpiar parroquias
+      selectParroquia.innerHTML = '<option value="">Seleccione una parroquia</option>';
+      
+      if (provincia && canton) {
+        fetch(`../ajax/ubicacion?action=parroquias&provincia=${encodeURIComponent(provincia)}&canton=${encodeURIComponent(canton)}`)
+          .then(response => response.json())
+          .then(data => {
+            data.forEach(parroquia => {
+              const option = document.createElement('option');
+              option.value = parroquia;
+              option.textContent = parroquia;
+              selectParroquia.appendChild(option);
+            });
+            selectParroquia.disabled = false;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            showNotification('Error al cargar las parroquias', 'error');
+          });
+      } else {
+        selectParroquia.disabled = true;
+      }
+    }
+
+    // Event listeners para los selects
+    document.getElementById('provincia').addEventListener('change', function() {
+      cargarCantones(this.value);
+    });
+
+    document.getElementById('canton').addEventListener('change', function() {
+      const provincia = document.getElementById('provincia').value;
+      cargarParroquias(provincia, this.value);
+    });
+    
+    // Función para actualizar el indicador de progreso
+    function updateProgressIndicator() {
+      const steps = document.querySelectorAll('.step-circle');
+      const lines = document.querySelectorAll('.step-line');
+      
+      steps.forEach((step, index) => {
+        step.classList.remove('active', 'completed');
+        if (index + 1 < currentStep) {
+          step.classList.add('completed');
+        } else if (index + 1 === currentStep) {
+          step.classList.add('active');
+        }
+      });
+      
+      lines.forEach((line, index) => {
+        line.classList.remove('completed');
+        if (index + 1 < currentStep) {
+          line.classList.add('completed');
+        }
+      });
+    }
+    
+    // Función para mostrar notificaciones
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#007BFF'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+      `;
+      
+      notification.innerHTML = `
+        <div style="display: flex; align-items: center;">
+          <span style="margin-right: 10px; font-size: 1.2em;">
+            ${type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️'}
+          </span>
+          ${message}
+        </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+    
+    // Función para mostrar ayuda
+    function showHelp() {
+      const helpContent = `
+        <div style="background: white; padding: 30px; border-radius: 15px; max-width: 500px; margin: 20px;">
+          <h3 style="color: #1e3c72; margin-bottom: 20px;">📚 Guía de Ayuda</h3>
+          
+          <div style="margin-bottom: 20px;">
+            <h4 style="color: #007BFF;">🆔 Cédula de Identidad</h4>
+            <p>Ingrese exactamente 10 dígitos numéricos sin espacios ni guiones.</p>
+          </div>
+          
+          <div style="margin-bottom: 20px;">
+            <h4 style="color: #007BFF;">📍 Ubicación</h4>
+            <p>Seleccione primero la provincia, luego el cantón y finalmente la parroquia (opcional).</p>
+          </div>
+          
+          <div style="margin-bottom: 20px;">
+            <h4 style="color: #007BFF;">📞 Teléfonos</h4>
+            <p>Ingrese números de 7 a 10 dígitos sin espacios ni guiones.</p>
+          </div>
+          
+          <div style="margin-bottom: 20px;">
+            <h4 style="color: #007BFF;">👨‍👩‍👧‍👦 Representantes</h4>
+            <p>El primer representante es obligatorio. El segundo es opcional.</p>
+          </div>
+          
+          <button onclick="this.parentElement.parentElement.remove()" style="
+            background: #007BFF; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            cursor: pointer;
+          ">
+            ✅ Entendido
+          </button>
+        </div>
+      `;
+      
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+      `;
+      
+      modal.innerHTML = helpContent;
+      document.body.appendChild(modal);
+      
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          document.body.removeChild(modal);
+        }
+      });
+    }
+
+    // Validación del formulario
+    const form = document.getElementById('registroForm');
+
+    form.addEventListener('submit', function(event) {
+      let valid = true;
+      const errors = [];
+      
+      // Validar todos los campos obligatorios
+      const requiredFields = [
+        'ciNiño', 'nombreNiño', 'fechaNacimiento', 'provincia', 'canton',
+        'representante1', 'ciRepresentante1', 'parentesco1', 'telefono1'
+      ];
+      
+      requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!validateField(field)) {
+        valid = false;
+          errors.push(fieldId);
+        }
+      });
+      
+      // Validar radio buttons
+      const radioGroups = ['sexo', 'activo', 'discapacidad'];
+      radioGroups.forEach(groupName => {
+        const radio = document.querySelector(`input[name="${groupName}"]:checked`);
+        if (!radio) {
+        valid = false;
+          const errorElement = document.getElementById(groupName + 'Error');
+          if (errorElement) {
+            errorElement.style.display = 'flex';
+          }
+        }
+      });
+      
+      if (!valid) {
+        event.preventDefault();
+        showNotification('Por favor, complete todos los campos obligatorios correctamente', 'error');
+        
+        // Scroll al primer error
+        const firstError = document.querySelector('.error-message[style*="flex"]');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else {
+        // Mostrar mensaje de éxito
+        showNotification('¡Formulario enviado correctamente! 🎉', 'success');
+        
+        // Opcional: mostrar loading
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = '<span style="margin-right: 8px;">⏳</span>Guardando...';
+        submitBtn.disabled = true;
+      }
+    });
+    
+    // Agregar estilos CSS para animaciones
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+      
+      .form-group.focused .form-label {
+        color: #007BFF;
+        transform: translateY(-2px);
+      }
+      
+      .radio-item {
+        transition: all 0.3s ease;
+      }
+      
+      .radio-item:hover {
+        transform: translateY(-2px);
+      }
+      
+      .radio-item.selected {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,123,255,0.2);
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

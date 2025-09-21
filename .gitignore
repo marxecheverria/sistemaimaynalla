@@ -1,0 +1,52 @@
+# Sistema de Registro de Niños - Archivo .gitignore
+
+# Archivos de configuración sensibles
+config/database.php
+config/auth.php
+
+# Archivos de sesión
+sessions/
+
+# Archivos de log
+*.log
+logs/
+
+# Archivos temporales
+*.tmp
+*.temp
+*~
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de caché
+cache/
+*.cache
+
+# Archivos de subida
+uploads/
+public/uploads/
+
+# Archivos de backup
+*.bak
+*.backup
+
+# Archivos de configuración local
+.env
+.env.local
+
+# Archivos de dependencias (si se agregan en el futuro)
+vendor/
+node_modules/
+
+# Archivos de compilación
+*.min.js
+*.min.css
