@@ -165,4 +165,3 @@ function create_directories() {
 
 // Crear directorios automáticamente
 create_directories();
-?>
