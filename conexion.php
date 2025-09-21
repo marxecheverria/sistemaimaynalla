@@ -20,6 +20,14 @@ $username = $db_config['username'];
 $password = $db_config['password'];
 $dbname = $db_config['database'];
 
-// La conexión ya está establecida en config/database.php
-// $conn está disponible globalmente
+// Obtener conexión bajo demanda
+$conn = obtenerConexion();
+
+// Si no hay conexión, mostrar mensaje de error amigable
+if ($conn === null) {
+    // En lugar de morir, establecer una conexión mock para compatibilidad
+    $conn = new stdClass();
+    $conn->connect_error = "Conexión a base de datos no disponible";
+    $conn->error = "Base de datos no disponible";
+}
 ?>
